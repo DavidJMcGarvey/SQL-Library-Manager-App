@@ -1,7 +1,7 @@
 {
   "name": "sql-library-manager",
   "version": "1.0.0",
-  "description": "Library Managment Express site for data management w/ Sequelize ORM",
+  "description": "Library Management Express site using a database w/ Sequelize ORM",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
@@ -28,5 +28,8 @@
     "pug": "^2.0.4",
     "sequelize": "^5.21.2",
     "sqlite3": "^4.1.1"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^5.5.1"
   }
 }
