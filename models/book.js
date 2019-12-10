@@ -12,7 +12,7 @@ module.exports = (sequelize) => {
                 }
             }
         },
-        aithor: {
+        author: {
             type: Sequelize.STRING,
             validate: {
                 notEmpty: {
