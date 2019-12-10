@@ -14,11 +14,11 @@ const app = express();
 // Pug and Static setup
 app.use('/static', express.static('public/stylesheets'));
 app.set('views', path.join(__dirname, 'views'));
-app.set('views engine', 'pug');
+app.set('view engine', 'pug');
 
 
 app.get('/', (req, res, next) => {
-    res.render('layout');
+    res.render('index');
 })
 
 // Setup local host

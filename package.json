@@ -25,6 +25,7 @@
   "homepage": "https://github.com/DavidJMcGarvey/FSJS-techdegree-project-08#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "nodemon": "^2.0.1",
     "path": "^0.12.7",
     "pug": "^2.0.4",
     "sequelize": "^5.21.2",
