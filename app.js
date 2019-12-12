@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 // ------------------------------------------
 //  Express App Setup
@@ -8,13 +8,18 @@ const express = require('express');
 const port = process.env.PORT || 3000;
 const path = require('path');
 const routes = require('./routes/index');
+const books = require('./routes/books');
 const app = express();
 
 // Pug Static setup
-app.use('/static', express.static('public/stylesheets'));
+// app.use('/static', express.static('public'));
+app.use('/static', express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
-app.use(routes);
+
+app.use('/', routes);
+app.use('/books', books);
+
 
 
 // Error handlers
