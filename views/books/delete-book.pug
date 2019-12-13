@@ -1,0 +1,13 @@
+extends ../layout
+
+block content
+
+  h2= title
+  p 
+    | Are you sure you want to delete 
+    em= book.title
+    | ?
+  form(action="/books/" + book.id + "/delete", method="post")
+    a(href="/books/" + book.id) No! I was just kidding! 
+    | 
+    input(type="submit", value = "Yes, I'm sure")

@@ -1,7 +1,14 @@
 extends ../layout
 
 block content
+
   h2= book.title
   h2= book.author
 
+  a.button(href=`/books/${book.id}/update-book`) Edit
+  br
+  br
+  a.button(href=`/books/${book.id}/delete-book`) Delete
+  br
+  br
   a.button(href='/') Back
