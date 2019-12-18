@@ -7,7 +7,7 @@ const Book = require('../models').Book;
 function asyncHandler(cb) {
   return async(req, res, next) => {
       try {
-          await cb(req, res);
+          await cb(req, res, next);
       } catch (error) {
           res.status(500).send(error);
       }
@@ -15,22 +15,22 @@ function asyncHandler(cb) {
 };
 
 // Sync database
-// (async () => {
-//   // Sync 'Book' table
-//   await Book.sequelize.sync({force: true});
+(async () => {
+  // Sync 'Book' table
+  await Book.sequelize.sync({force: true});
 
-//   try {
-//     const book111 = await Book.create({
-//       title: 'Mindset',
-//       author: 'Carolyn Dweck',
-//       genre: 'Sociology',
-//       year: 2011,
-//     });
-//     console.log(book111.toJSON());
-//   } catch (error) {
-//       throw error;
-//   }
-// });
+  try {
+    const book111 = await Book.create({
+      title: 'Mindset',
+      author: 'Carolyn Dweck',
+      genre: 'Sociology',
+      year: 2011,
+    });
+    console.log(book111.toJSON());
+  } catch (error) {
+      throw error;
+  }
+});
 
 // Book listing page
 router.get('/', asyncHandler(async (req, res) => {
@@ -55,16 +55,20 @@ router.get('/:id/update-book', asyncHandler(async(res, req) => {
 }));
 
 // POST new book
-router.post('/', asyncHandler(async (req, res) => {
+router.post('/', asyncHandler(async (req, res, next) => {
   let book;
+
+  // PROBLEM req.body === undefined (??)
   try {
     book = await Book.create(req.body);
-    res.redirect('books/' + book.id);
+    console.log(req.body);
+    res.redirect('/books/' + book.id);
   } catch (error) {
     if (error.name === "SequelizeValidationError") {
       book = await Book.build(req.body);
       book.id = req.params.id;
-      res.render('new-book', { book, errors: error.errors, title: "New Book Dawg" });
+      res.render('books/new-book', { book, errors: error.errors, title: "Let's Try That Again" });
+      // res.redirect('/books/new-book');
     } else {
       throw error;
     }
@@ -87,7 +91,7 @@ router.post('/:id/update-book', asyncHandler(async(res, req) => {
   let book;
   try {
     book = await Book.findByPk(req.params.id);
-    res.redirect('books/' + book.id);
+    res.redirect('/books/' + book.id);
   } catch (error) {
     if (error.name === "SequelizeValidationError") {
       book = await Book.build(req.body);

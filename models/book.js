@@ -10,12 +10,13 @@ module.exports = (sequelize) => {
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true,
+            unique: true
         },
         title: {
             type: Sequelize.STRING,
             allowNull: false,
             validate: {
-                notNull: {
+                notEmpty: {
                     msg: '"Title" is required dawg!'
                 }
             }
@@ -24,13 +25,17 @@ module.exports = (sequelize) => {
             type: Sequelize.STRING,
             allowNull: false,
             validate: {
-                notNull: {
+                notEmpty: {
                     msg: '"Author" is required dawg!'
                 }
             }
         },
-        genre: Sequelize.STRING,
-        year: Sequelize.INTEGER,
+        genre: {
+            type: Sequelize.STRING,
+        },
+        year: {
+            type: Sequelize.INTEGER,
+        }
     }, { sequelize });
 
     return Book;
