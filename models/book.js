@@ -1,6 +1,10 @@
 'use strict';
 
 const Sequelize = require('sequelize');
+const sequelize = new Sequelize({
+    dialect: 'sqlite',
+    storage: 'library.db'
+});
 
 module.exports = (sequelize) => {
     class Book extends Sequelize.Model {}
@@ -8,9 +12,9 @@ module.exports = (sequelize) => {
     Book.init({
         id: {
             type: Sequelize.INTEGER,
-            primaryKey: true,
+            primaryKey: true, 
             autoIncrement: true,
-            unique: true
+            unique: true 
         },
         title: {
             type: Sequelize.STRING,
@@ -40,3 +44,13 @@ module.exports = (sequelize) => {
 
     return Book;
 };
+
+// Test connection to database
+(async () => {
+    try {
+      await sequelize.authenticate();
+      console.log('Connection to the database successful!');
+    } catch (error) {
+      console.error('Error connecting to the database: ', error);
+    }
+  })();

@@ -1,3 +1,4 @@
 /node_modules
 /example-markup
 .DS_Store
+.vscode

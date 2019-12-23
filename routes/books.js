@@ -14,24 +14,6 @@ function asyncHandler(cb) {
   }
 };
 
-// Sync database
-// (async () => {
-//   // Sync 'Book' table
-//   await Book.sequelize.sync({force: true});
-
-//   try {
-//     const book111 = await Book.create({
-//       title: 'Mindset',
-//       author: 'Carolyn Dweck',
-//       genre: 'Sociology',
-//       year: 2011,
-//     });
-//     console.log(book111.toJSON());
-//   } catch (error) {
-//       throw error;
-//   }
-// });
-
 // Book listing page
 router.get('/', asyncHandler(async(req, res) => {
   let books = await Book.findAll();
@@ -40,25 +22,23 @@ router.get('/', asyncHandler(async(req, res) => {
 }));
 
 // Create new book form
-router.get('/new-book', (req, res) => {
-  res.render('books/new-book', { book: {}, title: "Add a new book!" })
-});
+router.get('/new-book', asyncHandler(async (req, res) => {
+  res.render("books/new-book", { book: {}, title: "Add a new book!" });
+}));
 
 // POST new book
-router.post('/', asyncHandler(async(req, res, next) => {
+router.post('/', asyncHandler(async (req, res, next) => {
   let book;
 
-  // PROBLEM req.body === undefined (??)
   try {
-    book = await Book.create(req.body);
-    console.log(req.body);
-    return res.redirect('/books/' + book.id);
+    book = Book.create(req.body);
+    console.log(book.toJSON());
+    res.redirect("/");
   } catch (error) {
     if (error.name === "SequelizeValidationError") {
       book = await Book.build(req.body);
       book.id = req.params.id;
       res.render('books/new-book', { book, errors: error.errors, title: "Let's Try That Again" });
-      // res.redirect('/books/new-book');
     } else {
       throw error;
     }
@@ -66,7 +46,7 @@ router.post('/', asyncHandler(async(req, res, next) => {
 }));
 
 // Detail page
-router.get('/:id', asyncHandler(async(req, res) => {
+router.get('/:id', asyncHandler(async (req, res) => {
   const book = await Book.findByPk(req.params.id);
   if (book) {
     res.render('books/book-detail', { book }); 
@@ -76,7 +56,7 @@ router.get('/:id', asyncHandler(async(req, res) => {
 }));
 
 // Update book page
-router.get('/:id/update-book', asyncHandler(async(req, res) => {
+router.get('/:id/update-book', asyncHandler(async (req, res) => {
   const book = await Book.findByPk(req.params.id);
   if (book) {
     res.render('books/update-book', { book });
@@ -86,7 +66,7 @@ router.get('/:id/update-book', asyncHandler(async(req, res) => {
 }));
 
 // POST updated book
-router.post('/:id/update-book', asyncHandler(async(req, res) => {
+router.post('/:id/update-book', asyncHandler(async (req, res) => {
   let book;
   try {
     book = await Book.findByPk(req.params.id);

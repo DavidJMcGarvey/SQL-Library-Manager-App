@@ -7,38 +7,29 @@
 const express = require('express');
 const port = process.env.PORT || 3000;
 const path = require('path');
+const bodyParser = require('body-parser');
 const routes = require('./routes/index');
 const books = require('./routes/books');
 const Book = require('./models').Book;
 const app = express();
-const bodyParser = require('body-parser');
 
 // Pug and static asset setup
 app.use('/static', express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'pug');
 
+// Setup json parsing
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 // Connect routes
 app.use('/', routes);
 app.use('/books', books);
 
-app.use(bodyParser);
-
-// Sync database
+// Sync database - async IIFE
 (async () => {
   // Sync 'Book' table
-  await Book.sequelize.sync({force: true});
+  await Book.sequelize.sync();
 
-  try {
-    const book111 = await Book.create({
-      title: 'Mindset',
-      author: 'Carolyn Dweck',
-      genre: 'Sociology',
-      year: 2011,
-    });
-    console.log(book111.toJSON());
-  } catch (error) {
-      throw error;
-  }
 });
 
 // Error handlers
