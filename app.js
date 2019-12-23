@@ -11,6 +11,7 @@ const routes = require('./routes/index');
 const books = require('./routes/books');
 const Book = require('./models').Book;
 const app = express();
+const bodyParser = require('body-parser');
 
 // Pug and static asset setup
 app.use('/static', express.static(path.join(__dirname, 'public')));
@@ -19,6 +20,8 @@ app.set('view engine', 'pug');
 // Connect routes
 app.use('/', routes);
 app.use('/books', books);
+
+app.use(bodyParser);
 
 // Sync database
 (async () => {
