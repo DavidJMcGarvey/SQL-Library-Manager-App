@@ -4,6 +4,12 @@ block content
 
   h1= title
   form(action='/books', method='post')
+    if errors
+      h2.errors Oooops!
+      ul.errors
+        li Author is required
+        li Name is required
+
     p
       label(for='title') Title
       input#title(name='title' type='text', value=book.title)

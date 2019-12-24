@@ -3,8 +3,14 @@ extends layout
 block content
 
   h1 Books
-  p
+  
+  div
+    input(placeholder="Search books...")
+    a.button.search Search
     a.button(href='/books/new-book') Create New Book
+      
+  p
+
   table
     thead
       tr
