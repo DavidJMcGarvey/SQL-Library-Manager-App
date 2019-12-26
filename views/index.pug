@@ -26,4 +26,20 @@ block content
         td= book.author
         td= book.genre
         td= book.year
-      
+
+  if paginate.hasPreviousPages || paginate.hasNextPages(pageCount)
+    .navigation.well-sm#pagination
+      ul.pager
+        if paginate.hasPreviousPages
+          li.previous
+            a(href=paginate.href(true)).button.prev
+              i.fa.fa-arrow-circle-left
+              |  Previous
+        if pages
+          each page in pages
+            a.button(href=page.url)= page.number
+        if paginate.hasNextPages(pageCount)
+          li.next
+            a(href=paginate.href()).next
+              | Next&nbsp;
+              i.fa.fa-arrow-circle-right

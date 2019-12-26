@@ -1,8 +1,11 @@
 'use strict';
 
 const express = require('express');
+const paginate = require('express-paginate');
 const router = express.Router();
 const Book = require('../models').Book;
+
+router.use(paginate.middleware(1, 10));
 
 function asyncHandler(cb) {
   return async(req, res, next) => {
@@ -15,10 +18,23 @@ function asyncHandler(cb) {
 };
 
 // Book listing page
-router.get('/', asyncHandler(async(req, res) => {
+router.get('/', asyncHandler(async (req, res) => {
+  // let books = await Book.findAll();
+  // books = books.map(book => book.toJSON());
+  // res.render('index', { books });
+
   let books = await Book.findAll();
   books = books.map(book => book.toJSON());
-  res.render('index', { books });
+  const bookCount = books.count;
+  const pageCount = Math.ceil(books.count / req.query.limit);
+  
+  res.render('index', {
+    books,
+    pageCount,
+    bookCount,
+    pages: paginate.getArrayPages(req)(10, pageCount, req.query.page)
+  });
+
 }));
 
 // Create new book form
