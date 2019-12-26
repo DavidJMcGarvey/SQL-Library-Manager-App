@@ -4,11 +4,12 @@ block content
 
   h2= book.title
   h2= book.author
+  h4= book.genre + ', ' + book.year
+
+  br
 
   a.button(href=`/books/${book.id}/update-book`) Edit
-  br
-  br
-  a.button(href=`/books/${book.id}/delete-book`) Delete
-  br
-  br
+
+  a.button.search(href=`/books/${book.id}/delete-book`) Delete
+
   a.button(href='/') Back
