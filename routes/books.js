@@ -5,7 +5,7 @@ const paginate = require('express-paginate');
 const router = express.Router();
 const Book = require('../models').Book;
 
-router.use(paginate.middleware(1, 10));
+router.use(paginate.middleware(10, 50));
 
 function asyncHandler(cb) {
   return async(req, res, next) => {
@@ -25,8 +25,8 @@ router.get('/', asyncHandler(async (req, res) => {
 
   let books = await Book.findAll();
   books = books.map(book => book.toJSON());
-  const bookCount = books.count;
-  const pageCount = Math.ceil(books.count / req.query.limit);
+  const bookCount = books.length;
+  const pageCount = Math.ceil(bookCount / 10);
   
   res.render('index', {
     books,
@@ -48,7 +48,6 @@ router.post('/', asyncHandler(async (req, res, next) => {
 
   try {
     book = await Book.create(req.body);
-    console.log(req.body);
     return res.redirect("/books/" + book.id);
   } catch (error) {
     if (error.name === "SequelizeValidationError") {

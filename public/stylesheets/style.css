@@ -92,10 +92,6 @@ input[type=text] {
   width: 300px;
 }
 
-.error {
-  color: rgb(236, 15, 15);
-}
-
 /* Davey CSS */
 
 .search {
@@ -103,7 +99,7 @@ input[type=text] {
 }
 
 .error {
-  color: red;
+  color: rgb(236, 15, 15);
 }
 
 
