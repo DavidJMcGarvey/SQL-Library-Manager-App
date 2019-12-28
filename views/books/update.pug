@@ -3,7 +3,7 @@ extends ../layout
 block content
 
   h1 Update Book
-  form(action=`/books/${book.id}/update-book`, method='POST')
+  form(action=`/books/${book.id}/new`, method='POST')
     p
       label(for='title') Title
       input#title(name='title' type='text', value=book.title)
@@ -19,4 +19,4 @@ block content
     p
       input(type='submit' value='Update Book')
     p
-      a.button(href=`/${book.id}`) Cancel
+      a.button(href=`/books/${book.id}`) Cancel
