@@ -38,8 +38,8 @@ router.get('/', asyncHandler(async (req, res) => {
 }));
 
 // Create new book form
-router.get('/new-book', asyncHandler(async (req, res) => {
-  res.render("books/new-book", { book: {}, title: "Add a new book!" });
+router.get('/new', asyncHandler(async (req, res) => {
+  res.render("books/new", { book: {}, title: "Add a new book!" });
 }));
 
 // POST new book
@@ -53,7 +53,7 @@ router.post('/', asyncHandler(async (req, res, next) => {
     if (error.name === "SequelizeValidationError") {
       book = await Book.build(req.body);
       book.id = req.params.id;
-      res.render('books/new-book', { book, errors: error.errors, title: "Let's Try That Again" });
+      res.render('books/new', { book, errors: error.errors, title: "Let's Try That Again" });
     } else {
       throw error;
     }
@@ -71,17 +71,17 @@ router.get('/:id', asyncHandler(async (req, res) => {
 }));
 
 // Update book page
-router.get('/:id/update-book', asyncHandler(async (req, res) => {
+router.get('/:id/update', asyncHandler(async (req, res) => {
   const book = await Book.findByPk(req.params.id);
   if (book) {
-    res.render('books/update-book', { book });
+    res.render('books/update', { book });
   } else {
     res.sendStatus(404);
   }
 }));
 
 // POST updated book
-router.post('/:id/update-book', asyncHandler(async (req, res) => {
+router.post('/:id/update', asyncHandler(async (req, res) => {
   let book;
   try {
     book = await Book.findByPk(req.params.id);
@@ -103,10 +103,10 @@ router.post('/:id/update-book', asyncHandler(async (req, res) => {
 }));
 
 // Delete book form
-router.get("/:id/delete-book", asyncHandler(async (req, res) => {
+router.get("/:id/delete", asyncHandler(async (req, res) => {
   const book = await Book.findByPk(req.params.id);
   if (book) {
-    res.render("books/delete-book", { book, title: "Delete Book" });
+    res.render("books/delete", { book, title: "Delete Book" });
   } else {
     res.sendStatus(404);
   }
