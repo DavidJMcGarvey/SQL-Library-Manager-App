@@ -124,4 +124,17 @@ router.post('/:id/delete', asyncHandler(async (req ,res) => {
   
 }));
 
+// Search route
+router.get('/search/:query', asyncHandler(async (req, res, next) => {
+  let searchQuery = req.params.query;
+  let books = await Book.findAll({
+    where: {
+      title: searchQuery
+    }
+  })
+  res.render('index', { books })
+  console.log(req.params.query);
+  
+}));
+
 module.exports = router;
