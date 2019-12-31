@@ -2,14 +2,12 @@ extends layout
 
 block content
 
-  h1 Books on Books on Books!
+  h1 Search on Books on Books!
   
   div
-    form(action='/books/search/', method='post')
-      div
-        input(placeholder="Search books...", type="text", id="query", name="query", autofocus)
-      button.search(type="submit", id="search") Search
-
+    form(action='/books/search/' + query, method='get')
+      input(placeholder="Search books...", type="text")
+      button.search(type="submit") Search
       a.button(href='/books/new') Create New Book
       
   p

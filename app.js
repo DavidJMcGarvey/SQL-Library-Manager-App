@@ -36,9 +36,12 @@ app.use('/books', books);
 app.use((req, res, next) => {
   const err = new Error('Error --> Could not find requested page, dawg!');
   err.status = 404;
-  res.render('404');
-  console.error(err.message);
-  return next(err);
+  if (err.status) {
+    res.render('404');
+  } else {
+    console.error(err.message);
+    return next(err);
+  }
 });
 
 app.use((err, req, res, next) => {
