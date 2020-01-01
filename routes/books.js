@@ -5,6 +5,9 @@ const paginate = require('express-paginate');
 const router = express.Router();
 const Book = require('../models').Book;
 
+const Sequalize = require('sequelize');
+const Op = Sequalize.Op;
+
 router.use(paginate.middleware(10, 50));
 
 function asyncHandler(cb) {
@@ -131,10 +134,25 @@ router.post('/search', asyncHandler(async (req, res) => {
   
   let books = await Book.findAll({
     where: {
-      title: query
+      [Op.or] : {
+        title: {
+          [Op.like]: `%${query}%`,
+        },
+        author: {
+          [Op.like]: `%${query}%`,
+        },
+        genre: {
+          [Op.like]: `%${query}%`,
+        },
+        year: {
+          [Op.like]: `%${query}%`,
+        } 
+      }
+      
     }
   });
-  console.log(query);
+  // req.params.query = query;
+  // console.log(req.params.query);
   res.render('index', { books, query })
 
 }));
