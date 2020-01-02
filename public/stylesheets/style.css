@@ -1,4 +1,5 @@
 body {
+  background-image: url("/static/images/books.jpg");
   padding: 10px 50px 50px;
   font: 18px "Garamond", serif;
 }
@@ -61,11 +62,12 @@ th {
 
 tr {
   min-height: 50px;
-}
-
-tr:nth-child(2n) {
   background: #E7E7E7;
 }
+
+/* tr:nth-child(2n) {
+  background: #E7E7E7;
+} */
 
 td {
   padding: 5px 20px 5px 10px;
@@ -102,4 +104,36 @@ input[type=text] {
   color: rgb(236, 15, 15);
 }
 
+button {
+  color: #019875;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.4s;
+}
 
+button.search {
+  color: white;
+  background: #019875;
+  font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
+  padding: 10px 14px 12px;
+  font-size: 14px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+a.navigation {
+  margin-left: 0px;
+  margin-right: 7px;
+}
+
+h4 {
+  background: #E7E7E7;
+  padding: 5px;
+  margin-right: 636px;
+}
+
+h1 {
+  background: #E7E7E7;
+  padding: 5px;
+  margin-right: 900px;
+}

@@ -1,5 +1,6 @@
 .navigation.well-sm#pagination
   ul.pager
+    br
     if pages
       each page in pages
-        a.button.search.navigation(href=paginate.href({}))= page.number
+        a.button.navigation(href=paginate.href({}))= page.number

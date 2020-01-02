@@ -22,14 +22,12 @@ function asyncHandler(cb) {
 
 // Book listing page
 router.get('/', asyncHandler(async (req, res) => {
-  // let books = await Book.findAll();
-  // books = books.map(book => book.toJSON());
-  // res.render('index', { books });
-
-  let books = await Book.findAll();
-  books = books.map(book => book.toJSON());
+  let books = await Book.findAll({
+    limit: 10,
+  });
+  console.log(req.query.page);
   const bookCount = books.length;
-  const pageCount = Math.ceil(bookCount / 10);
+  const pageCount = Math.ceil(bookCount / 5);
   
   res.render('index', {
     books,
@@ -66,6 +64,7 @@ router.post('/', asyncHandler(async (req, res, next) => {
 // Detail page
 router.get('/:id', asyncHandler(async (req, res) => {
   const book = await Book.findByPk(req.params.id);
+
   if (book) {
     res.render('books/book-detail', { book }); 
   } else {
@@ -129,9 +128,8 @@ router.post('/:id/delete', asyncHandler(async (req ,res) => {
 
 // Search route
 router.post('/search', asyncHandler(async (req, res) => {
-  
   let query = req.body.query;
-  
+
   let books = await Book.findAll({
     where: {
       [Op.or] : {
@@ -148,12 +146,19 @@ router.post('/search', asyncHandler(async (req, res) => {
           [Op.like]: `%${query}%`,
         } 
       }
-      
     }
   });
-  // req.params.query = query;
-  // console.log(req.params.query);
-  res.render('index', { books, query })
+
+  const bookCount = books.length;
+  const pageCount = Math.ceil(bookCount / 5);
+
+  res.render('index', {
+    books,
+    query,
+    pageCount,
+    bookCount,
+    pages: paginate.getArrayPages(req)(10, pageCount, req.query.page)
+  });
 
 }));
 

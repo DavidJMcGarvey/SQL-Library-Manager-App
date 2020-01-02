@@ -8,9 +8,10 @@ block content
     form(action='/books/search/', method='post')
       div
         input(placeholder="Search books...", type="text", id="query", name="query", autofocus)
-      button.search(type="submit", id="search") Search
+        button.search(type="submit", id="search") Search
+        
+        a.button(href='/books/new') Create New Book
 
-      a.button(href='/books/new') Create New Book
       
   p
 
@@ -31,3 +32,7 @@ block content
         td= book.year
 
   include _paginate
+
+  br
+  if query
+    a.button(href='/') Home
