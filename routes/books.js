@@ -8,7 +8,7 @@ const Book = require('../models').Book;
 const Sequalize = require('sequelize');
 const Op = Sequalize.Op;
 
-router.use(paginate.middleware(10, 50));
+router.use(paginate.middleware(5, 50));
 
 function asyncHandler(cb) {
   return async(req, res, next) => {
@@ -22,17 +22,16 @@ function asyncHandler(cb) {
 
 // Book listing page
 router.get('/', asyncHandler(async (req, res) => {
+  let allBooks = await Book.findAll();
   let books = await Book.findAll({
-    limit: 10,
+    limit: req.query.limit,
+    offset: req.skip
   });
-  console.log(req.query.page);
-  const bookCount = books.length;
-  const pageCount = Math.ceil(bookCount / 5);
+
+  const pageCount = Math.ceil(allBooks.length / req.query.limit);
   
   res.render('index', {
     books,
-    pageCount,
-    bookCount,
     pages: paginate.getArrayPages(req)(10, pageCount, req.query.page)
   });
 
@@ -129,34 +128,38 @@ router.post('/:id/delete', asyncHandler(async (req ,res) => {
 // Search route
 router.post('/search', asyncHandler(async (req, res) => {
   let query = req.body.query;
-
-  let books = await Book.findAll({
-    where: {
-      [Op.or] : {
-        title: {
-          [Op.like]: `%${query}%`,
-        },
-        author: {
-          [Op.like]: `%${query}%`,
-        },
-        genre: {
-          [Op.like]: `%${query}%`,
-        },
-        year: {
-          [Op.like]: `%${query}%`,
-        } 
-      }
+  let searchConditions = {
+    [Op.or] : {
+      title: {
+        [Op.like]: `%${query}%`,
+      },
+      author: {
+        [Op.like]: `%${query}%`,
+      },
+      genre: {
+        [Op.like]: `%${query}%`,
+      },
+      year: {
+        [Op.like]: `%${query}%`,
+      } 
     }
+  };
+
+  let allBooks = await Book.findAll({
+    where: searchConditions,
+  });
+  
+  let books = await Book.findAll({
+    where: searchConditions,
+    limit: req.query.limit,
+    offset: req.skip
   });
 
-  const bookCount = books.length;
-  const pageCount = Math.ceil(bookCount / 5);
+  const pageCount = Math.ceil(allBooks.length / req.query.limit);
 
-  res.render('index', {
+  res.render('search', {
     books,
     query,
-    pageCount,
-    bookCount,
     pages: paginate.getArrayPages(req)(10, pageCount, req.query.page)
   });
 

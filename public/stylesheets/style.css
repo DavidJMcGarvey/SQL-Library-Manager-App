@@ -154,3 +154,11 @@ label {
 input {
   border-radius: 18px;
 }
+
+.joking {
+  color: #E7E7E7;
+  background: #019875;;
+  padding: 5px;
+  margin-right: 10px;
+  border-radius: 18px;
+}

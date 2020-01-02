@@ -51,6 +51,14 @@ app.use((err, req, res, next) => {
   res.render('error');
 });
 
+// app.use((err, req, res, next) => {
+//   if (err instanceof NotFound) {
+//     res.render('404');
+//   } else {
+//     return next(err);
+//   }
+// });
+
 // Setup local host
 app.listen(port, () => {
   console.log(`The app is running on localhost: ${port}, dawg!`);

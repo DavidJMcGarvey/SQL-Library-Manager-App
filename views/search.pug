@@ -1,0 +1,44 @@
+extends layout
+
+block content
+
+  h1= 'Search Books: "' + query + '"'
+  
+  div
+    form(action='/books/search/', method='post')
+      div
+        input(placeholder="Search books...", type="text", id="query", name="query", autofocus)
+        button.search(type="submit", id="search") Search
+        
+        a.button(href='/books/new') Create New Book
+
+      
+  p
+
+  table
+    thead
+      tr
+        th Title
+        th Author
+        th Genre
+        th Year
+    tbody
+    each book in books
+      tr
+        td
+          a(href='/books/' + book.id)= book.title
+        td= book.author
+        td= book.genre
+        td= book.year
+
+  //- include _paginate
+  navigation#pagination
+  ul.pager
+    br
+    if pages
+      each page in pages
+        a.button.navigation(href=page.url)= page.number
+
+  br
+  if query
+    a.button(href='/') Home
