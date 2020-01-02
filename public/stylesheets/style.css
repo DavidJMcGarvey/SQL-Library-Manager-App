@@ -65,17 +65,14 @@ tr {
   background: #E7E7E7;
 }
 
-/* tr:nth-child(2n) {
-  background: #E7E7E7;
-} */
-
 td {
   padding: 5px 20px 5px 10px;
+  border-radius: 18px;
 }
 
 label {
   font-weight: bold;
-  min-width: 130px;
+  min-width: 70px;
   display: inline-block;
   transition: 0.4s;
 }
@@ -130,10 +127,30 @@ h4 {
   background: #E7E7E7;
   padding: 5px;
   margin-right: 636px;
+  border-radius: 18px;
 }
 
 h1 {
   background: #E7E7E7;
   padding: 5px;
-  margin-right: 900px;
+  margin-right: 636px;
+  border-radius: 18px;
+}
+
+h2.detail {
+  background: #E7E7E7;
+  padding: 5px;
+  margin-right: 636px;
+  border-radius: 18px;
+}
+
+label {
+  background: #E7E7E7;
+  padding: 5px;
+  margin-right: 10px;
+  border-radius: 18px;
+}
+
+input {
+  border-radius: 18px;
 }

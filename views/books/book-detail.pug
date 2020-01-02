@@ -2,9 +2,9 @@ extends ../layout
 
 block content
 
-  h2= book.title
-  h2= book.author
-  h4= book.genre + ', ' + book.year
+  h2.detail=  book.title
+  h2.detail=  book.author
+  h2.detail= book.genre + '  |  ' + book.year
 
   br
 
