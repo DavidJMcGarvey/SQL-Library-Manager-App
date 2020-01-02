@@ -5,7 +5,7 @@ block content
   h1= title
   form(action='/books', method='post')
     if errors
-      h2.errors Oooops!
+      h2.errors.detail Oooops!
       ul.errors
         li.error *Author is required
         li.error *Name is required

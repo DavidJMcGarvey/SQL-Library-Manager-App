@@ -13,7 +13,7 @@ To run:
 
 **BASIC FEATURES**
 
-This Express web app uses SQLite to store information on library books on a database. 
+This Express web app uses SQLite to store information on library books on a database. All standard CRUD features are avalibale to the user. A user can Create, Read, Update, and Delete book entries. 
 
 **EXTRA FEATURES**
 - Search: 

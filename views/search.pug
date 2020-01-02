@@ -31,13 +31,7 @@ block content
         td= book.genre
         td= book.year
 
-  //- include _paginate
-  navigation#pagination
-  ul.pager
-    br
-    if pages
-      each page in pages
-        a.button.navigation(href=page.url)= page.number
+  include _paginate
 
   br
   if query
