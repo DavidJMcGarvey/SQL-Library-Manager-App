@@ -29,11 +29,10 @@ router.get('/', asyncHandler(async (req, res) => {
   });
 
   const pageCount = Math.ceil(allBooks.length / req.query.limit);
-  const pages = paginate.getArrayPages(req)(10, pageCount, req.query.page);
   
   res.render('index', {
     books,
-    pages
+    pages: paginate.getArrayPages(req)(10, pageCount, req.query.page)
   });
 
 }));
@@ -126,47 +125,6 @@ router.post('/:id/delete', asyncHandler(async (req ,res) => {
   
 }));
 
-// Search GET route
-
-// router.get('/search', asyncHandler(async (req, res) => {
-//   let query = req.body.query;
-//   let searchConditions = {
-//     [Op.or] : {
-//       title: {
-//         [Op.like]: `%${query}%`,
-//       },
-//       author: {
-//         [Op.like]: `%${query}%`,
-//       },
-//       genre: {
-//         [Op.like]: `%${query}%`,
-//       },
-//       year: {
-//         [Op.like]: `%${query}%`,
-//       } 
-//     }
-//   };
-
-//   let allBooks = await Book.findAll({
-//     where: searchConditions,
-//   });
-  
-//   let books = await Book.findAll({
-//     where: searchConditions,
-//     limit: req.query.limit,
-//     offset: req.skip
-//   });
-
-//   const pageCount = Math.ceil(allBooks.length / req.query.limit);
-//   let pages = paginate.getArrayPages(req)(10, pageCount, req.query.page);
-
-//   res.render('search', {
-//     books,
-//     query,
-//     pages
-//   });
-// }));
-
 // Search POST route
 router.post('/search', asyncHandler(async (req, res) => {
   let query = req.body.query;
@@ -204,7 +162,7 @@ router.post('/search', asyncHandler(async (req, res) => {
     books,
     query,
     pages
-  });
+   });
 
 }));
 
