@@ -13,15 +13,15 @@ To run:
 
 **BASIC FEATURES**
 
-This Express web app uses SQLite to store information on library books on a database. All standard CRUD features are avalibale to the user. A user can Create, Read, Update, and Delete book entries. 
+This Express web app uses SQLite and Sequelize to store information on library books in a database. All standard CRUD features are avalibale to the user. A user can Create, Read, Update, and Delete book entries. 
 
 **EXTRA FEATURES**
-- Search: 
-- Pagination:
-- Custom Styling: At the bottom of **styles.css**, custom CSS styles were added to the pre-existing project CSS. 
+- Search: User can search partial matching, case insensitive words or numbers and matches will render.
+- Pagination: The home page of the library includes pagintion, five books per page to keep things uncluttered. 
+- Custom Styling: At the bottom of **styles.css**, custom CSS styles were added to the pre-existing project CSS. Find them under "Davey CSS"
 
 
 Author: David J McGarvey
 Created: 2019-12-09
-Updated: 2019-12-23 
+Updated: 2020-01-03
 

@@ -12,7 +12,6 @@ block content
         
         a.button(href='/books/new') Create New Book
 
-      
   p
 
   table
@@ -23,15 +22,17 @@ block content
         th Genre
         th Year
     tbody
-    each book in books
+    if books.length != 0
+      each book in books
+        tr
+          td
+            a(href='/books/' + book.id)= book.title
+          td= book.author
+          td= book.genre
+          td= book.year
+    else
       tr
-        td
-          a(href='/books/' + book.id)= book.title
-        td= book.author
-        td= book.genre
-        td= book.year
-
-  include _paginate
+        td.detail Sorry, no matches :(
 
   br
   if query
