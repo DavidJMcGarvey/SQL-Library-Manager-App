@@ -23,5 +23,5 @@ This Express web app uses SQLite and Sequelize to store information on library b
 
 Author: David J McGarvey
 Created: 2019-12-09
-Updated: 2020-01-03
+Updated: 2020-01-07
 
